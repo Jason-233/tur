@@ -13,6 +13,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup NDK
+        run: |
+          mkdir -p $HOME/lib
+          cd $HOME/lib
+          wget https://dl.google.com/android/repository/android-ndk-r25c-linux.zip
+          unzip android-ndk-r25c-linux.zip
+          mv android-ndk-r25c android-ndk-r29
+
       - name: Setup build environment
         run: ./setup-environment.sh
 
