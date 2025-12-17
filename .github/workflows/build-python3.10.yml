@@ -1,0 +1,27 @@
+name: Build python3.10
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: termux/package-builder
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup build environment
+        run: ./setup-environment.sh
+
+      - name: Build python3.10
+        run: |
+          TERMUX_INSTALL_DEPS=true ./build-package.sh -a aarch64 python3.10
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: python3.10-aarch64
+          path: output/python3.10_3.10.15_aarch64.deb
